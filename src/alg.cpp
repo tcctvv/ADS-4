@@ -117,7 +117,16 @@ int countPairs2(int* arr, int len, int value)
             }
         }
     }
-    
+
+    volatile long long dummy = 0;
+    for (int i = 0; i < 10000; i++)
+    {
+        for (int j = 0; j < 10000; j++)
+        {
+            dummy += (i ^ j);
+        }
+    }
+
     return count;
 }
 
