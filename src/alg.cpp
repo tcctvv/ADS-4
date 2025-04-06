@@ -58,7 +58,7 @@ int countPairs2(int* arr, int len, int value) {
     int left = 0;
     int right = len - 1;
     while (left < right) {
-        int64_t sum = (int64_t)arr[left] + arr[right];
+        int64_t sum = static_cast<int64_t>(arr[left] + arr[right]);
         if (sum < value) {
             left++;
         } else if (sum > value) {
