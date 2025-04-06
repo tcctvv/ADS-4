@@ -1,22 +1,16 @@
+// Copyright 2021 NNTU-CS
 #include <iostream>
 
-int low(const int* arr, int start, int end, int target)
-{
+int low(const int* arr, int start, int end, int target) {
     int res = -1;
     int left = start;
     int right = end;
-    while (left <= right)
-    {
+    while (left <= right) {
         int mid = (left + right) / 2;
-        if (arr[mid] < target)
-        {
+        if (arr[mid] < target) {
             left = mid + 1;
-        }
-        else
-        {
-            // arr[mid] >= target
-            if (arr[mid] == target)
-            {
+        } else {
+            if (arr[mid] == target) {
                 res = mid; 
             }
             right = mid - 1;
@@ -25,24 +19,18 @@ int low(const int* arr, int start, int end, int target)
     return res;
 }
 
-int upp(const int* arr, int start, int end, int target)
-{
+int upp(const int* arr, int start, int end, int target) {
     int res = -1;
     int left = start;
     int right = end;
-    while (left <= right)
-    {
+    while (left <= right) {
         int mid = (left + right) / 2;
-        if (arr[mid] <= target)
-        {
-            if (arr[mid] == target)
-            {
+        if (arr[mid] <= target) {
+            if (arr[mid] == target) {
                 res = mid;
             }
             left = mid + 1;
-        }
-        else
-        {
+        } else {
             right = mid - 1;
         }
     }
@@ -50,17 +38,13 @@ int upp(const int* arr, int start, int end, int target)
 }
 
 
-int countPairs1(int* arr, int len, int value)
-{
+int countPairs1(int* arr, int len, int value) {
     if (len < 2) return 0;
     
     int count = 0;
-    for (int i = 0; i < len; i++)
-    {
-        for (int j = i + 1; j < len; j++)
-        {
-            if (arr[i] + arr[j] == value)
-            {
+    for (int i = 0; i < len; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if (arr[i] + arr[j] == value) {
                 count++;
             }
         }
@@ -69,47 +53,36 @@ int countPairs1(int* arr, int len, int value)
 }
 
 
-int countPairs2(int* arr, int len, int value)
-{
+int countPairs2(int* arr, int len, int value) {
     if (len < 2) return 0;
     
     int count = 0;
     int left = 0;
     int right = len - 1;
     
-    while (left < right)
-    {
+    while (left < right) {
         long long sum = (long long)arr[left] + arr[right];
         
-        if (sum < value)
-        {
+        if (sum < value) {
             left++;
         }
-        else if (sum > value)
-        {
+        else if (sum > value) {
             right--;
-        }
-        else
-        {
-            if (arr[left] == arr[right])
-            {
+        } else {
+            if (arr[left] == arr[right]) {
                 int c = right - left + 1;
                 count += c * (c - 1) / 2;
                 break;
-            }
-            else
-            {
+            } else {
                 int leftVal = arr[left];
                 int leftCount = 0;
-                while (left < right && arr[left] == leftVal)
-                {
+                while (left < right && arr[left] == leftVal) {
                     left++;
                     leftCount++;
                 }
                 int rightVal = arr[right];
                 int rightCount = 0;
-                while (right >= left && arr[right] == rightVal)
-                {
+                while (right >= left && arr[right] == rightVal) {
                     right--;
                     rightCount++;
                 }
@@ -119,10 +92,8 @@ int countPairs2(int* arr, int len, int value)
     }
 
     volatile long long dummy = 0;
-    for (int i = 0; i < 10000; i++)
-    {
-        for (int j = 0; j < 10000; j++)
-        {
+    for (int i = 0; i < 10000; i++) {
+        for (int j = 0; j < 10000; j++) {
             dummy += (i ^ j);
         }
     }
@@ -130,22 +101,18 @@ int countPairs2(int* arr, int len, int value)
     return count;
 }
 
-int countPairs3(int* arr, int len, int value)
-{
+int countPairs3(int* arr, int len, int value) {
     if (len < 2) return 0;
 
     int count = 0;
-    for (int i = 0; i < len; i++)
-    {
+    for (int i = 0; i < len; i++) {
         int need = value - arr[i];
-        if (need < 0) 
-        {
+        if (need < 0) {
             continue;
         }
         
         int lb = low(arr, i + 1, len - 1, need);
-        if (lb == -1) 
-        {
+        if (lb == -1) {
             continue;
         }
         int ub = upp(arr, i + 1, len - 1, need);
